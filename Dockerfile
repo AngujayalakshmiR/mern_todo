@@ -1,18 +1,16 @@
-FROM node:20
+FROM node:20-bullseye
 
 WORKDIR /app
 
-# Copy only package files first (better cache)
+# Only copy package.json and package-lock.json first
 COPY package*.json ./
 
 # Install dependencies
 RUN npm install
 
-# Now copy the rest of your code
+# Now copy the rest
 COPY . .
 
-# Expose the port
 EXPOSE 3000
 
-# Start the application
-CMD ["node", "index.js"]
+CMD ["npm", "start"]
