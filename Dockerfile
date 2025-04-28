@@ -1,16 +1,20 @@
-FROM node:20-bullseye
+# Step 1: Use a valid Node.js image
+FROM node:20
 
+# Step 2: Set working directory inside container
 WORKDIR /app
 
-# Only copy package.json and package-lock.json first
+# Step 3: Copy package.json and package-lock.json first (for caching)
 COPY package*.json ./
 
-# Install dependencies
+# Step 4: Install node dependencies
 RUN npm install
 
-# Now copy the rest
+# Step 5: Copy all files (your app files)
 COPY . .
 
+# Step 6: Expose the port your app listens on
 EXPOSE 3000
 
-CMD ["npm", "start"]
+# Step 7: Command to run app
+CMD ["node", "index.js"]
